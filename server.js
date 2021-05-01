@@ -1,21 +1,14 @@
 'use strict'
 
 import express from 'express';
-
+import routes from './app/routes/note.routes.js'
+import { url } from './config/database.config.js';
+import mongoose from 'mongoose';
 
 const PORT = 8881;//specify port
 
 //create express app
 const app = express();
-
-// parse requests of content-type application/x-www-form-urlencoded
-app.use(express.urlencoded());
-
-// parse requests of content-type application/json
-app.use(express.json());
-
-import { url } from './config/database.config.js';
-import mongoose from 'mongoose';
 
 mongoose.Promise = global.Promise;
 
@@ -29,6 +22,14 @@ mongoose.connect(url, {
     process.exit();
 })
 
+// parse requests of content-type application/x-www-form-urlencoded
+app.use(express.urlencoded());
+
+// parse requests of content-type application/json
+app.use(express.json());
+
+routes(app)
+
 //define a route
 app.get('/', (req, res) => {
     res.json({'message': 'Welcome to NotesApp!'});
@@ -38,3 +39,4 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log('listening on port ', PORT)
 })
+
