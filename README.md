@@ -1,2 +1,2 @@
-# CRUDNotesApp
-app for taking notes using Node.js, Express and MongoDB
+# Notes app
+app for taking and savings notes using Node.js, Express and MongoDB
